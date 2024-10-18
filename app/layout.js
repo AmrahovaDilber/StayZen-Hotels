@@ -26,8 +26,8 @@ export default function RootLayout({ children }) {
         <header className="bg-[#c2ecd3] z-30">
           <Header />
         </header>
-        <div className="flex-1 px-8 py-12">
-          <main className="max-w-7xl mx-auto text-gray-800">{children}</main>
+        <div className="flex-1 px-8 py-12 bg-[#141C24]">
+          <main className="max-w-7xl mx-auto text-gray-800 ">{children}</main>
         </div>
       </body>
     </html>
