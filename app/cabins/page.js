@@ -1,13 +1,16 @@
 import React, { Suspense } from "react";
 import CabinList from "../_components/CabinList";
 import { getCabins } from "../_lib/data-service";
+import Filter from "../_components/Filter";
 
 export const metadata = {
   title: "Cabins",
 };
 
-export default async function Page() {
+export default async function Page({ searchParams }) {
   const cabins = await getCabins();
+
+  const filter = searchParams?.capacity ?? "all";
   return (
     <div>
       <h1 className="text-4xl font-bold mb-6 text-gray-100">
@@ -23,14 +26,13 @@ export default async function Page() {
         Immerse yourself in nature while enjoying the finest hospitality and
         service. Discover your dream getaway with us!
       </p>
+      <div className="flex justify-end mb-8">
+        <Filter></Filter>
+      </div>
 
-      
-        <Suspense fallback={<Spinner></Spinner>}>
-          <CabinList></CabinList>
-        </Suspense>
-     
-       
-      
+      <Suspense key={filter} fallback={<Spinner></Spinner>}>
+        <CabinList filter={filter}></CabinList>
+      </Suspense>
     </div>
   );
 }
