@@ -10,4 +10,4 @@ export default function page() {
       <h2>Welcome,Dilber</h2>
     </div>
   )
-}
+} 

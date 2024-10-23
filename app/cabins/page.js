@@ -1,14 +1,18 @@
-import React from "react";
+import React, { Suspense } from "react";
+import CabinList from "../_components/CabinList";
+import { getCabins } from "../_lib/data-service";
 
 export const metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
-  const cabins = [];
+export default async function Page() {
+  const cabins = await getCabins();
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-6 text-gray-100">Our Luxury Cabins</h1>
+      <h1 className="text-4xl font-bold mb-6 text-gray-100">
+        Our Luxury Cabins
+      </h1>
       <p className="text-lg mb-8 text-gray-100 ">
         Experience the best in luxury and comfort. Our cabins are meticulously
         designed to provide a serene escape from the hustle and bustle of daily
@@ -20,17 +24,13 @@ export default function Page() {
         service. Discover your dream getaway with us!
       </p>
 
-      {cabins.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cabins.map((cabin) => (
-            <CabinCard key={cabin.id} cabin={cabin} />
-          ))}
-        </div>
-      ) : (
-        <p className="text-center text-lg text-gray-100">
-          No cabins available at the moment.
-        </p>
-      )}
+      
+        <Suspense fallback={<Spinner></Spinner>}>
+          <CabinList></CabinList>
+        </Suspense>
+     
+       
+      
     </div>
   );
 }
